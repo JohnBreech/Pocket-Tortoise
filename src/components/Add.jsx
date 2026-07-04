@@ -133,6 +133,9 @@ function Add({ onSave }) {
     setModalOpen(false);
   };
 
+  
+const SelectedIcon = selectedLogo.component;
+
   return (
     <>
       {modalOpen && (
@@ -157,7 +160,6 @@ function Add({ onSave }) {
                 <ul className="grid grid-cols-8 gap-2 max-h-20 no-scrollbar overflow-auto">
                   {logos.map((logo, index) => {
                     const Icon = logo.component;
-                    const SelectedIcon = selectedLogo.component;
 
                     return (
                       <li
