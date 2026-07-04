@@ -18,7 +18,10 @@ import { useState } from "react";
 function Add({ onSave }) {
   const [modalOpen, setModalOpen] = useState(false);
   const [logoModalOpen, setLogoModalOpen] = useState(false);
-  const [SelectedLogo, setSelectedLogo] = useState(BanknoteArrowUp);
+  const [selectedLogo, setSelectedLogo] = useState({
+    component: BanknoteArrowUp,
+    name: "BanknoteArrowUp",
+  });
   const [selectedOption, setSelectedOption] = useState("Income");
 
   const [itemName, setItemName] = useState("");
@@ -39,22 +42,22 @@ function Add({ onSave }) {
   }
 
   const logos = [
-    BanknoteArrowUp,
-    BanknoteArrowDown,
-    Utensils,
-    PiggyBank,
-    Dumbbell,
-    Glasses,
-    Gem,
-    Luggage,
-    Popcorn,
-    Sofa,
-    Wifi,
-    Van,
+    { component: BanknoteArrowUp, name: "BanknoteArrowUp" },
+    { component: BanknoteArrowDown, name: "BanknoteArrowDown" },
+    { component: Utensils, name: "Utensils" },
+    { component: PiggyBank, name: "PiggyBank" },
+    { component: Dumbbell, name: "Dumbbell" },
+    { component: Glasses, name: "Glasses" },
+    { component: Gem, name: "Gem" },
+    { component: Luggage, name: "Luggage" },
+    { component: Popcorn, name: "Popcorn" },
+    { component: Sofa, name: "Sofa" },
+    { component: Wifi, name: "Wifi" },
+    { component: Van, name: "Van" },
   ];
 
-  function handleSelectedLogo(clickedIcon) {
-    setSelectedLogo(() => clickedIcon);
+  function handleSelectedLogo(logo) {
+    setSelectedLogo(logo);
     setLogoModalOpen(false);
   }
 
@@ -113,7 +116,7 @@ function Add({ onSave }) {
 
     const newItem = {
       id: crypto.randomUUID(),
-      icon: SelectedLogo.name,
+      icon: selectedLogo.name,
       name: itemName,
       finance: selectedOption,
       type: category,
@@ -152,12 +155,14 @@ function Add({ onSave }) {
                   </button>
                 </div>
                 <ul className="grid grid-cols-8 gap-2 max-h-20 no-scrollbar overflow-auto">
-                  {logos.map((symbol, index) => {
-                    const Icon = symbol;
+                  {logos.map((logo, index) => {
+                    const Icon = logo.component;
+                    const SelectedIcon = selectedLogo.component;
+
                     return (
                       <li
                         key={index}
-                        onClick={() => handleSelectedLogo(Icon)}
+                        onClick={() => handleSelectedLogo(logo)}
                         className="p-3 bg-white rounded-xl text-center cursor-pointer hover:bg-green-50 text-sm flex justify-center items-center"
                       >
                         <Icon size={30} className="hover:text-green-400" />
@@ -184,7 +189,7 @@ function Add({ onSave }) {
                 className="bg-gray-50 rounded-xl p-2 cursor-pointer flex items-center justify-center"
                 onClick={handleLogoModalOpen}
               >
-                <SelectedLogo size={30} />
+                <SelectedIcon size={30} />
               </div>
               <input
                 type="text"
