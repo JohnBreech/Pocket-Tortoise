@@ -35,7 +35,7 @@ function App() {
       <div className="flex flex-row">
         <Dashboard />
         <div className="flex flex-col w-full pl-8 pr-8 gap-5">
-          <Header name={"John"} />
+          <Header/>
           <Transactions items={transactionItems} />
         </div>
       </div>
