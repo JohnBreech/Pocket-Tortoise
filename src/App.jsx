@@ -4,22 +4,26 @@ import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import Header from "./components/Header.jsx";
 import Transactions from "./components/Transactions.jsx";
 
-
-
 function App() {
   const [transactionItems, setTransactionItems] = useState(() => {
-    const saved = localStorage.getItem("transactions");
+    try {
+      const saved = localStorage.getItem("transactions");
 
-    if (saved) {
-      return JSON.parse(saved);
+      if (saved && saved !== "undefined") {
+        return JSON.parse(saved);
+      }
+
+      return demoTransactions;
+    } catch (error) {
+      console.error("Failed to load transactions:", error);
+      return demoTransactions;
     }
   });
 
   useEffect(() => {
-    localStorage.setItem(
-      "transactions",
-      JSON.stringify(transactionItems)
-    );
+    if (transactionItems) {
+      localStorage.setItem("transactions", JSON.stringify(transactionItems));
+    }
   }, [transactionItems]);
 
   const handleAddItem = (newItem) => {
