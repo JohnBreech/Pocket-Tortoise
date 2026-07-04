@@ -11,9 +11,9 @@ function Dashboard() {
   const [activeTab, setActiveTab] = useState("Overview");
   const tabs = [
     { name: "Overview", Icon: House },
-    { name: "Stats", Icon: ChartColumnBig },
-    { name: "Accounts", Icon: Bookmark },
-    { name: "Profile", Icon: CircleUserRound },
+    //{ name: "Stats", Icon: ChartColumnBig },
+    //{ name: "Accounts", Icon: Bookmark },
+    //{ name: "Profile", Icon: CircleUserRound },
   ];
 
   return (

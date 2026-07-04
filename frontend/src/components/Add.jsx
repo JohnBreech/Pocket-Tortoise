@@ -113,7 +113,7 @@ function Add({ onSave }) {
 
     const newItem = {
       id: crypto.randomUUID(),
-      icon: SelectedLogo,
+      icon: SelectedLogo.name,
       name: itemName,
       finance: selectedOption,
       type: category,

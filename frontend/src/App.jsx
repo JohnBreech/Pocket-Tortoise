@@ -1,11 +1,26 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Add from "./components/Add.jsx";
 import Dashboard from "./components/Dashboard/Dashboard.jsx";
 import Header from "./components/Header.jsx";
 import Transactions from "./components/Transactions.jsx";
 
+
+
 function App() {
-  const [transactionItems, setTransactionItems] = useState([]);
+  const [transactionItems, setTransactionItems] = useState(() => {
+    const saved = localStorage.getItem("transactions");
+
+    if (saved) {
+      return JSON.parse(saved);
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem(
+      "transactions",
+      JSON.stringify(transactionItems)
+    );
+  }, [transactionItems]);
 
   const handleAddItem = (newItem) => {
     setTransactionItems((prevItems) => [newItem, ...prevItems]);
@@ -20,6 +35,7 @@ function App() {
           <Transactions items={transactionItems} />
         </div>
       </div>
+
       <Add onSave={handleAddItem} />
     </>
   );
